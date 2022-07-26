@@ -16,7 +16,7 @@ This chart bootstraps a Komiser instance community edition.
 
 1. **[Create an IAM OIDC provider for your cluster](docs/enable-iam-roles-for-service-accounts.md)** – You only need to do this once for a cluster\.
 
-2. **[Create an IAM role and attach an Komiser IAM policy to it with the permissions that your service accounts need](create-service-account-iam-policy-and-role.md)**
+2. **[Create an IAM role and attach an Komiser IAM policy to it with the permissions that your service accounts need](docs/create-service-account-iam-policy-and-role.md)**
 
 3. Update [templates/service-account.yaml](templates/service-account.yaml) with the IAM role you've created previously.
 
