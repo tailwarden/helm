@@ -12,6 +12,7 @@ spec:
       labels: 
         app: komiser
     spec:
+      serviceAccountName: komiser
       containers: 
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
