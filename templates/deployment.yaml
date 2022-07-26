@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment 
 metadata: 
   name: komiser
-  namespace: {{ .Values.namespace }}
 spec:
   selector: 
     matchLabels: 
@@ -15,6 +14,6 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-           env:
+          env:
             - name: AWS_DEFAULT_REGION
               value: "{{ .Values.aws.region }}"
