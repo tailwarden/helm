@@ -9,6 +9,8 @@ spec:
   template: 
     metadata: 
       name: komiser
+      labels: 
+        app: komiser
     spec:
       containers: 
         - name: {{ .Chart.Name }}
