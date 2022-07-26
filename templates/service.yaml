@@ -1,19 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "komiser.fullname" . }}
-  labels:
-    app.kubernetes.io/name: {{ include "komiser.name" . }}
-    helm.sh/chart: {{ include "komiser.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  name: komiser
 spec:
-  type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+    - name: http
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer
   selector:
-    app.kubernetes.io/name: {{ include "komiser.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    app: komiser
