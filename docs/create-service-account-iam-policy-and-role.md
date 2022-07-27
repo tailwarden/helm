@@ -30,7 +30,7 @@
          "Condition": {
            "StringEquals": {
              "${OIDC_PROVIDER}:aud": "sts.amazonaws.com",
-             "${OIDC_PROVIDER}:sub": "system:serviceaccount:default:komiser"
+             "${OIDC_PROVIDER}:sub": "system:serviceaccount:${NAMESPACE}:komiser"
            }
          }
        }
@@ -39,6 +39,8 @@
    EOF
    echo "${TRUST_RELATIONSHIP}" > trust.json
    ```
+
+`NOTE: Make sure to substitute ${NAMESPACE} for the namespace you will deploy the helm chart in. If deployed in any other namespace, you will see sts:AssumeRoleWithWebIdentity failure messages in the pod logs.`
 
 1. Run the modified code block from the previous step to create a file named *`trust.json`*\.
 
