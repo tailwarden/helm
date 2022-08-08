@@ -20,3 +20,14 @@ spec:
           env:
             - name: AWS_DEFAULT_REGION
               value: "{{ .Values.aws.region }}"
+            - name: AWS_PROFILE
+              value: "jakes-account"
+            - name: AWS_CONFIG_FILE
+              value: /home/credentials
+          volumeMounts:
+          - name: test-volume
+            mountPath: /home
+      volumes:
+      - name: test-volume
+        configMap:
+          name: aws-configmap
