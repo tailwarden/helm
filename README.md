@@ -10,7 +10,7 @@ This chart bootstraps a community edition Komiser instance.
 
 - Kubernetes 1.6+
 
-## Configuration (single AWS account)
+# Configuration (single AWS account)
 
 **Enable service accounts to access AWS resources in three steps**
 
@@ -20,7 +20,7 @@ This chart bootstraps a community edition Komiser instance.
 
 3. Update [templates/service-account.yaml](templates/service-account.yaml) with the IAM role you've created previously.
 
-## Configuration (multiple AWS accounts)
+# Configuration (multiple AWS accounts)
 
 Steps for a container to access the resources in multiple AWS accounts. \
 *We are working with two example clusters, **ADMIN** and **DEV** cluster.* 
@@ -48,13 +48,6 @@ Steps for a container to access the resources in multiple AWS accounts. \
 
 7. **[Mount the ConfigMap to the Deployment manifest](docs/mount-cm-to-deployment.md)**
 
-## Installing the chart
-To install the chart:
-
-```bash
-$ helm install -f values.yaml komiser .
-```
-
 **Tutorial walkthrough:**
 
 <a href="https://www.loom.com/share/c3d283a0ff9844abab927a5c01cfbaa3">
@@ -62,5 +55,11 @@ $ helm install -f values.yaml komiser .
     <img style="max-width:500px;" src="https://cdn.loom.com/sessions/thumbnails/c3d283a0ff9844abab927a5c01cfbaa3-with-play.gif">
   </a>
 
-\
+# Installing the chart
+To install the chart:
+
+```bash
+$ helm install -f values.yaml komiser .
+```
+
 The above command deploys Komiser on the Kubernetes cluster in the default configuration.
