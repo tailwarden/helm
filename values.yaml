@@ -1,6 +1,6 @@
 image:
   repository: mlabouardy/komiser
-  tag: 2.9.3
+  tag: 2.9.0
   pullPolicy: IfNotPresent
 
 aws:
