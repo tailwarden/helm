@@ -17,6 +17,7 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          #command: ["--multiple"]
           env:
             - name: AWS_DEFAULT_REGION
               value: "{{ .Values.aws.region }}"
