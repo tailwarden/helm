@@ -13,11 +13,20 @@ spec:
         app: komiser
     spec:
       serviceAccountName: komiser
+      volumes:
+      - name: cloud-account-configmap
+        configMap:
+          name: komiser
       containers: 
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          #command: ["--multiple"]
-          env:
-            - name: AWS_DEFAULT_REGION
-              value: "{{ .Values.aws.region }}"
+          args:
+            - start 
+            - "--config"
+            - "/root/.aws/config.toml"
+            - "--regions"
+            - "eu-central-1"
+          volumeMounts:
+            - name: cloud-account-configmap
+              mountPath: /root/.aws/
