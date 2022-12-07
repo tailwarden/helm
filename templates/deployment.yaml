@@ -21,12 +21,13 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: AWS_SDK_LOAD_CONFIG
+            value: "true"
           args:
             - start 
             - "--config"
             - "/root/.aws/config.toml"
-            - "--regions"
-            - "eu-central-1"
           volumeMounts:
             - name: cloud-account-configmap
               mountPath: /root/.aws/

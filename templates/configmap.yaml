@@ -3,18 +3,18 @@ kind: ConfigMap
 metadata:
   name: komiser
 data:
-  config.toml: |-
+  config.toml: |
     [[aws]]
     name="Admin-Account"
     source="CREDENTIALS_FILE" # additionally EVIRONMENT_VARIABLES can be used
-    path="./credentials.toml" # remove line if using ENVIRONMENT VARIABLES 
-    profile="default"
+    path="./aws/credentials" # remove line if using ENVIRONMENT VARIABLES
+    profile="Admin-Account" 
 
     [[aws]]
     name="Jakes-Account"
     source="CREDENTIALS_FILE" # additionally EVIRONMENT_VARIABLES can be used
-    path="./credentials.toml" # remove line if using ENVIRONMENT VARIABLES
-    profile="jakes"
+    path="./aws/credentials" # remove line if using ENVIRONMENT VARIABLES
+    profile="Jakes-Account"
 
     [sqlite]
     file="komiser.db"
@@ -23,13 +23,13 @@ data:
     # [postgres]
     # uri="postgres://postgres:komiser@localhost:5432/komiser?sslmode=disable"
 
-  credentials.toml: |- 
-    [default]
+  credentials: | 
+    [Admin-Account]
     region=eu-central-1
     role_arn=arn:aws:iam::602887012891:role/komiser-multiple-cloud-account-demo 
     web_identity_token_file=/var/run/secrets/eks.amazonaws.com/serviceaccount/token
   
-    [jakes]
-    region=eu-central-1
-    role_arn=arn:aws:iam::890753381703:role/komiserRole 
-    source_profile="default"
+    #[Jakes-Account]
+    #region=eu-central-1
+    #role_arn=arn:aws:iam::890753381703:role/komiser-role-test
+    #source_profile="Admin-Account"
