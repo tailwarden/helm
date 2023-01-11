@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-configmap-config
+data:
+  config.yaml: |-
+    [[aws]]
+    name = "ACCOUNT-NAME"
+    source="CREDENTIALS_FILE" # additionally EVIRONMENT_VARIABLES can be used
+    path="/root/.komiser/credentials.yaml" # remove line if using ENVIRONMENT VARIABLES
+    profile = "default" 
+
+    [sqlite]
+    file = "/komiser-database/komiser.db"
+
+    # Alternative data persistance option using postgresql DB
+    # [postgres]
+    # uri="postgres://postgres:komiser@localhost:5432/komiser?sslmode=disable"

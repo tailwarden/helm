@@ -13,11 +13,31 @@ spec:
         app: komiser
     spec:
       serviceAccountName: komiser
+      volumes:
+      - name: aws-configmap-config
+        configMap:
+          name: aws-configmap-config 
+      - name: aws-configmap-credentials
+        configMap:
+          name: aws-configmap-credentials
+      - name: komiser-storage
+        persistentVolumeClaim:
+          claimName: komiser-pv-claim
       containers: 
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          #command: ["--multiple"]
           env:
-            - name: AWS_DEFAULT_REGION
-              value: "{{ .Values.aws.region }}"
+          - name: AWS_SDK_LOAD_CONFIG
+            value: "true"
+          args:
+            - start 
+            - "--config"
+            - "/root/.komiser/config.yaml"
+          volumeMounts:
+            - name: aws-configmap-config
+              mountPath: /root/.komiser
+            - name: aws-configmap-credentials
+              mountPath: /root/.aws/
+            - name: komiser-storage
+              mountPath: /komiser-database/
