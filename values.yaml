@@ -4,4 +4,4 @@ image:
   pullPolicy: IfNotPresent
 
 aws:
-  region: "us-east-1"
+  region: "eu-central-1"
