@@ -14,9 +14,15 @@ spec:
     spec:
       serviceAccountName: komiser
       volumes:
-      - name: cloud-account-configmap
+      - name: aws-configmap-config
         configMap:
-          name: komiser
+          name: aws-configmap-config 
+      - name: aws-configmap-credentials
+        configMap:
+          name: aws-configmap-credentials
+      - name: komiser-storage
+        persistentVolumeClaim:
+          claimName: komiser-pv-claim
       containers: 
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -27,7 +33,11 @@ spec:
           args:
             - start 
             - "--config"
-            - "/root/.aws/config.toml"
+            - "/root/.komiser/config.yaml"
           volumeMounts:
-            - name: cloud-account-configmap
+            - name: aws-configmap-config
+              mountPath: /root/.komiser
+            - name: aws-configmap-credentials
               mountPath: /root/.aws/
+            - name: komiser-storage
+              mountPath: /komiser-database/
