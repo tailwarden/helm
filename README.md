@@ -52,28 +52,7 @@ Steps for a container to access the resources in multiple AWS accounts. \
 
 **Tutorial walkthrough:**
 
-<div style={{
-    position: 'relative', 
-    paddingBottom: '56.25%',
-    paddingTop:'30px',
-    height:0,
-    overflow:'hidden',
-  }}>
-  <iframe
-    src='https://www.youtube.com/embed/4veDmJpui44'
-    allowFullScreen
-    webkitallowfullscreen="true"
-    frameBorder="0"
-    style={{
-      position: 'absolute',
-      top:0,
-      left:0,
-      width:'100%',
-      height:'100%',
-    }}
-  >
-  </iframe>
-</div>
+[![Watch the video](images/EKS-installation-video.png)](https://www.youtube.com/embed/4veDmJpui44)
 
 > Note that even though the video covers Amazon EKS, the Helm chart can be deployed to any Kubernetes cluster no matter the provider. 
 
