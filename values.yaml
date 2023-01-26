@@ -1,6 +1,6 @@
 image:
   repository: tailwarden/komiser
-  tag: 3.0.0
+  tag: 3.0.1
   pullPolicy: IfNotPresent
 
 aws:
