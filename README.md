@@ -53,7 +53,7 @@ Steps for a container to access the resources in multiple AWS accounts. \
 **Tutorial walkthrough:**
 
 <div style={{
-    position: 'relative',
+    position: 'relative', 
     paddingBottom: '56.25%',
     paddingTop:'30px',
     height:0,
