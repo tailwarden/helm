@@ -1,6 +1,8 @@
 # Komiser
 
-[Komiser](https://komiser.io/) is an open source cloud environment inspector.
+<img src="https://cdn.komiser.io/images/readme-komiser-header.png?version=latest" alt="Amp Logo">
+
+[Komiser](https://www.komiser.io/?utm_source=github&utm_medium=social) is an open-source cloud-agnostic resource manager. It integrates with multiple cloud providers (including AWS, OCI, DigitalOcean, Kubernetes and CIVO), builds a cloud asset inventory, and helps you break down your cost at the resource level 💰
 
 ## Introduction
 
@@ -50,10 +52,9 @@ Steps for a container to access the resources in multiple AWS accounts. \
 
 **Tutorial walkthrough:**
 
-<a href="https://www.loom.com/share/c3d283a0ff9844abab927a5c01cfbaa3">
-    <p>Komiser- Multiple AWS accounts deployment to EKS - Watch Video</p>
-    <img style="max-width:500px;" src="https://cdn.loom.com/sessions/thumbnails/c3d283a0ff9844abab927a5c01cfbaa3-with-play.gif">
-  </a>
+[![Watch the video](images/EKS-installation-video.png)](https://www.youtube.com/embed/4veDmJpui44)
+
+> Note that even though the video covers Amazon EKS, the Helm chart can be deployed to any Kubernetes cluster no matter the provider. 
 
 # Installing the chart
 To install the chart:
