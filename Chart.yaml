@@ -2,8 +2,8 @@ apiVersion: v2
 name: komiser
 description: Komiser Helm Chart
 type: application
-version: 3.0.3
-appVersion: 3.0.3
+version: 3.0.4
+appVersion: 3.0.4
 maintainers:
     - name: Mohamed Labouardy
       email: mohamed@tailwarden.com
