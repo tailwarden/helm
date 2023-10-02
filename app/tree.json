@@ -1,0 +1,3917 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "@aws-cdk/core.Construct",
+          "version": "1.204.0"
+        }
+      },
+      "KomiserStack": {
+        "id": "KomiserStack",
+        "path": "KomiserStack",
+        "children": {
+          "MyCluster": {
+            "id": "MyCluster",
+            "path": "KomiserStack/MyCluster",
+            "children": {
+              "DefaultVpc": {
+                "id": "DefaultVpc",
+                "path": "KomiserStack/MyCluster/DefaultVpc",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "KomiserStack/MyCluster/DefaultVpc/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::VPC",
+                      "aws:cdk:cloudformation:props": {
+                        "cidrBlock": "10.0.0.0/16",
+                        "enableDnsHostnames": true,
+                        "enableDnsSupport": true,
+                        "instanceTenancy": "default",
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "KomiserStack/MyCluster/DefaultVpc"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnVPC",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "PublicSubnet1": {
+                    "id": "PublicSubnet1",
+                    "path": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet1",
+                    "children": {
+                      "Subnet": {
+                        "id": "Subnet",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet1/Subnet",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "MyClusterDefaultVpc76C24A38"
+                            },
+                            "availabilityZone": {
+                              "Fn::Select": [
+                                0,
+                                {
+                                  "Fn::GetAZs": ""
+                                }
+                              ]
+                            },
+                            "cidrBlock": "10.0.0.0/18",
+                            "mapPublicIpOnLaunch": true,
+                            "tags": [
+                              {
+                                "key": "aws-cdk:subnet-name",
+                                "value": "Public"
+                              },
+                              {
+                                "key": "aws-cdk:subnet-type",
+                                "value": "Public"
+                              },
+                              {
+                                "key": "kubernetes.io/role/elb",
+                                "value": "1"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet1"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnSubnet",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "Acl": {
+                        "id": "Acl",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet1/Acl",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Resource",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "RouteTable": {
+                        "id": "RouteTable",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet1/RouteTable",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "MyClusterDefaultVpc76C24A38"
+                            },
+                            "tags": [
+                              {
+                                "key": "kubernetes.io/role/elb",
+                                "value": "1"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet1"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnRouteTable",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "RouteTableAssociation": {
+                        "id": "RouteTableAssociation",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet1/RouteTableAssociation",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "MyClusterDefaultVpcPublicSubnet1RouteTable3FBFE83A"
+                            },
+                            "subnetId": {
+                              "Ref": "MyClusterDefaultVpcPublicSubnet1SubnetFAE5A9B6"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnSubnetRouteTableAssociation",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "DefaultRoute": {
+                        "id": "DefaultRoute",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet1/DefaultRoute",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "MyClusterDefaultVpcPublicSubnet1RouteTable3FBFE83A"
+                            },
+                            "destinationCidrBlock": "0.0.0.0/0",
+                            "gatewayId": {
+                              "Ref": "MyClusterDefaultVpcIGW72978E63"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnRoute",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "EIP": {
+                        "id": "EIP",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet1/EIP",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+                          "aws:cdk:cloudformation:props": {
+                            "domain": "vpc",
+                            "tags": [
+                              {
+                                "key": "kubernetes.io/role/elb",
+                                "value": "1"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet1"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnEIP",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "NATGateway": {
+                        "id": "NATGateway",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet1/NATGateway",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
+                          "aws:cdk:cloudformation:props": {
+                            "subnetId": {
+                              "Ref": "MyClusterDefaultVpcPublicSubnet1SubnetFAE5A9B6"
+                            },
+                            "allocationId": {
+                              "Fn::GetAtt": [
+                                "MyClusterDefaultVpcPublicSubnet1EIPE30F4CB6",
+                                "AllocationId"
+                              ]
+                            },
+                            "tags": [
+                              {
+                                "key": "kubernetes.io/role/elb",
+                                "value": "1"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet1"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnNatGateway",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.PublicSubnet",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "PublicSubnet2": {
+                    "id": "PublicSubnet2",
+                    "path": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet2",
+                    "children": {
+                      "Subnet": {
+                        "id": "Subnet",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet2/Subnet",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "MyClusterDefaultVpc76C24A38"
+                            },
+                            "availabilityZone": {
+                              "Fn::Select": [
+                                1,
+                                {
+                                  "Fn::GetAZs": ""
+                                }
+                              ]
+                            },
+                            "cidrBlock": "10.0.64.0/18",
+                            "mapPublicIpOnLaunch": true,
+                            "tags": [
+                              {
+                                "key": "aws-cdk:subnet-name",
+                                "value": "Public"
+                              },
+                              {
+                                "key": "aws-cdk:subnet-type",
+                                "value": "Public"
+                              },
+                              {
+                                "key": "kubernetes.io/role/elb",
+                                "value": "1"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet2"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnSubnet",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "Acl": {
+                        "id": "Acl",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet2/Acl",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Resource",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "RouteTable": {
+                        "id": "RouteTable",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet2/RouteTable",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "MyClusterDefaultVpc76C24A38"
+                            },
+                            "tags": [
+                              {
+                                "key": "kubernetes.io/role/elb",
+                                "value": "1"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet2"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnRouteTable",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "RouteTableAssociation": {
+                        "id": "RouteTableAssociation",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet2/RouteTableAssociation",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "MyClusterDefaultVpcPublicSubnet2RouteTable6F95E0F5"
+                            },
+                            "subnetId": {
+                              "Ref": "MyClusterDefaultVpcPublicSubnet2SubnetF6D028A0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnSubnetRouteTableAssociation",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "DefaultRoute": {
+                        "id": "DefaultRoute",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet2/DefaultRoute",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "MyClusterDefaultVpcPublicSubnet2RouteTable6F95E0F5"
+                            },
+                            "destinationCidrBlock": "0.0.0.0/0",
+                            "gatewayId": {
+                              "Ref": "MyClusterDefaultVpcIGW72978E63"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnRoute",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "EIP": {
+                        "id": "EIP",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet2/EIP",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+                          "aws:cdk:cloudformation:props": {
+                            "domain": "vpc",
+                            "tags": [
+                              {
+                                "key": "kubernetes.io/role/elb",
+                                "value": "1"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet2"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnEIP",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "NATGateway": {
+                        "id": "NATGateway",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet2/NATGateway",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
+                          "aws:cdk:cloudformation:props": {
+                            "subnetId": {
+                              "Ref": "MyClusterDefaultVpcPublicSubnet2SubnetF6D028A0"
+                            },
+                            "allocationId": {
+                              "Fn::GetAtt": [
+                                "MyClusterDefaultVpcPublicSubnet2EIPB1C5462C",
+                                "AllocationId"
+                              ]
+                            },
+                            "tags": [
+                              {
+                                "key": "kubernetes.io/role/elb",
+                                "value": "1"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "KomiserStack/MyCluster/DefaultVpc/PublicSubnet2"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnNatGateway",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.PublicSubnet",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "PrivateSubnet1": {
+                    "id": "PrivateSubnet1",
+                    "path": "KomiserStack/MyCluster/DefaultVpc/PrivateSubnet1",
+                    "children": {
+                      "Subnet": {
+                        "id": "Subnet",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PrivateSubnet1/Subnet",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "MyClusterDefaultVpc76C24A38"
+                            },
+                            "availabilityZone": {
+                              "Fn::Select": [
+                                0,
+                                {
+                                  "Fn::GetAZs": ""
+                                }
+                              ]
+                            },
+                            "cidrBlock": "10.0.128.0/18",
+                            "mapPublicIpOnLaunch": false,
+                            "tags": [
+                              {
+                                "key": "aws-cdk:subnet-name",
+                                "value": "Private"
+                              },
+                              {
+                                "key": "aws-cdk:subnet-type",
+                                "value": "Private"
+                              },
+                              {
+                                "key": "kubernetes.io/role/internal-elb",
+                                "value": "1"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "KomiserStack/MyCluster/DefaultVpc/PrivateSubnet1"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnSubnet",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "Acl": {
+                        "id": "Acl",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PrivateSubnet1/Acl",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Resource",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "RouteTable": {
+                        "id": "RouteTable",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PrivateSubnet1/RouteTable",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "MyClusterDefaultVpc76C24A38"
+                            },
+                            "tags": [
+                              {
+                                "key": "kubernetes.io/role/internal-elb",
+                                "value": "1"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "KomiserStack/MyCluster/DefaultVpc/PrivateSubnet1"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnRouteTable",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "RouteTableAssociation": {
+                        "id": "RouteTableAssociation",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PrivateSubnet1/RouteTableAssociation",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "MyClusterDefaultVpcPrivateSubnet1RouteTable904F736B"
+                            },
+                            "subnetId": {
+                              "Ref": "MyClusterDefaultVpcPrivateSubnet1SubnetE1D0DCDB"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnSubnetRouteTableAssociation",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "DefaultRoute": {
+                        "id": "DefaultRoute",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PrivateSubnet1/DefaultRoute",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "MyClusterDefaultVpcPrivateSubnet1RouteTable904F736B"
+                            },
+                            "destinationCidrBlock": "0.0.0.0/0",
+                            "natGatewayId": {
+                              "Ref": "MyClusterDefaultVpcPublicSubnet1NATGateway407335D7"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnRoute",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.PrivateSubnet",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "PrivateSubnet2": {
+                    "id": "PrivateSubnet2",
+                    "path": "KomiserStack/MyCluster/DefaultVpc/PrivateSubnet2",
+                    "children": {
+                      "Subnet": {
+                        "id": "Subnet",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PrivateSubnet2/Subnet",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "MyClusterDefaultVpc76C24A38"
+                            },
+                            "availabilityZone": {
+                              "Fn::Select": [
+                                1,
+                                {
+                                  "Fn::GetAZs": ""
+                                }
+                              ]
+                            },
+                            "cidrBlock": "10.0.192.0/18",
+                            "mapPublicIpOnLaunch": false,
+                            "tags": [
+                              {
+                                "key": "aws-cdk:subnet-name",
+                                "value": "Private"
+                              },
+                              {
+                                "key": "aws-cdk:subnet-type",
+                                "value": "Private"
+                              },
+                              {
+                                "key": "kubernetes.io/role/internal-elb",
+                                "value": "1"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "KomiserStack/MyCluster/DefaultVpc/PrivateSubnet2"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnSubnet",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "Acl": {
+                        "id": "Acl",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PrivateSubnet2/Acl",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Resource",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "RouteTable": {
+                        "id": "RouteTable",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PrivateSubnet2/RouteTable",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "MyClusterDefaultVpc76C24A38"
+                            },
+                            "tags": [
+                              {
+                                "key": "kubernetes.io/role/internal-elb",
+                                "value": "1"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "KomiserStack/MyCluster/DefaultVpc/PrivateSubnet2"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnRouteTable",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "RouteTableAssociation": {
+                        "id": "RouteTableAssociation",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PrivateSubnet2/RouteTableAssociation",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "MyClusterDefaultVpcPrivateSubnet2RouteTableF149DC2C"
+                            },
+                            "subnetId": {
+                              "Ref": "MyClusterDefaultVpcPrivateSubnet2Subnet11FEA8D0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnSubnetRouteTableAssociation",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "DefaultRoute": {
+                        "id": "DefaultRoute",
+                        "path": "KomiserStack/MyCluster/DefaultVpc/PrivateSubnet2/DefaultRoute",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "MyClusterDefaultVpcPrivateSubnet2RouteTableF149DC2C"
+                            },
+                            "destinationCidrBlock": "0.0.0.0/0",
+                            "natGatewayId": {
+                              "Ref": "MyClusterDefaultVpcPublicSubnet2NATGateway16CBC0B0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-ec2.CfnRoute",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.PrivateSubnet",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "IGW": {
+                    "id": "IGW",
+                    "path": "KomiserStack/MyCluster/DefaultVpc/IGW",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::InternetGateway",
+                      "aws:cdk:cloudformation:props": {
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "KomiserStack/MyCluster/DefaultVpc"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnInternetGateway",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "VPCGW": {
+                    "id": "VPCGW",
+                    "path": "KomiserStack/MyCluster/DefaultVpc/VPCGW",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::VPCGatewayAttachment",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "MyClusterDefaultVpc76C24A38"
+                        },
+                        "internetGatewayId": {
+                          "Ref": "MyClusterDefaultVpcIGW72978E63"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnVPCGatewayAttachment",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-ec2.Vpc",
+                  "version": "1.204.0"
+                }
+              },
+              "KubectlHandlerRole": {
+                "id": "KubectlHandlerRole",
+                "path": "KomiserStack/MyCluster/KubectlHandlerRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "KomiserStack/MyCluster/KubectlHandlerRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          },
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+                              ]
+                            ]
+                          },
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.CfnRole",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "KomiserStack/MyCluster/KubectlHandlerRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "KomiserStack/MyCluster/KubectlHandlerRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "eks:DescribeCluster",
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::GetAtt": [
+                                      "MyCluster8AD82BF8",
+                                      "Arn"
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::GetAtt": [
+                                      "MyClusterCreationRoleB5FA4FF3",
+                                      "Arn"
+                                    ]
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "MyClusterKubectlHandlerRoleDefaultPolicy7FB0AE53",
+                            "roles": [
+                              {
+                                "Ref": "MyClusterKubectlHandlerRole42303817"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.CfnPolicy",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.Policy",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-iam.Role",
+                  "version": "1.204.0"
+                }
+              },
+              "Role": {
+                "id": "Role",
+                "path": "KomiserStack/MyCluster/Role",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "KomiserStack/MyCluster/Role/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "eks.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/AmazonEKSClusterPolicy"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.CfnRole",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-iam.Role",
+                  "version": "1.204.0"
+                }
+              },
+              "ControlPlaneSecurityGroup": {
+                "id": "ControlPlaneSecurityGroup",
+                "path": "KomiserStack/MyCluster/ControlPlaneSecurityGroup",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "KomiserStack/MyCluster/ControlPlaneSecurityGroup/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                      "aws:cdk:cloudformation:props": {
+                        "groupDescription": "EKS Control Plane Security Group",
+                        "securityGroupEgress": [
+                          {
+                            "cidrIp": "0.0.0.0/0",
+                            "description": "Allow all outbound traffic by default",
+                            "ipProtocol": "-1"
+                          }
+                        ],
+                        "vpcId": {
+                          "Ref": "MyClusterDefaultVpc76C24A38"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnSecurityGroup",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-ec2.SecurityGroup",
+                  "version": "1.204.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "KomiserStack/MyCluster/Resource",
+                "children": {
+                  "CreationRole": {
+                    "id": "CreationRole",
+                    "path": "KomiserStack/MyCluster/Resource/CreationRole",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "KomiserStack/MyCluster/Resource/CreationRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "AWS": [
+                                      {
+                                        "Fn::GetAtt": [
+                                          "MyClusterKubectlHandlerRole42303817",
+                                          "Arn"
+                                        ]
+                                      },
+                                      {
+                                        "Fn::GetAtt": [
+                                          "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454",
+                                          "Outputs.KomiserStackawscdkawseksClusterResourceProviderIsCompleteHandlerServiceRoleDC1B2E25Arn"
+                                        ]
+                                      },
+                                      {
+                                        "Fn::GetAtt": [
+                                          "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454",
+                                          "Outputs.KomiserStackawscdkawseksClusterResourceProviderOnEventHandlerServiceRole470E6A69Arn"
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.CfnRole",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "DefaultPolicy": {
+                        "id": "DefaultPolicy",
+                        "path": "KomiserStack/MyCluster/Resource/CreationRole/DefaultPolicy",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "KomiserStack/MyCluster/Resource/CreationRole/DefaultPolicy/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                              "aws:cdk:cloudformation:props": {
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "iam:PassRole",
+                                      "Effect": "Allow",
+                                      "Resource": {
+                                        "Fn::GetAtt": [
+                                          "MyClusterRoleBA20FE72",
+                                          "Arn"
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "Action": [
+                                        "eks:CreateCluster",
+                                        "eks:CreateFargateProfile",
+                                        "eks:DeleteCluster",
+                                        "eks:DescribeCluster",
+                                        "eks:DescribeUpdate",
+                                        "eks:TagResource",
+                                        "eks:UntagResource",
+                                        "eks:UpdateClusterConfig",
+                                        "eks:UpdateClusterVersion"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": "*"
+                                    },
+                                    {
+                                      "Action": [
+                                        "eks:DeleteFargateProfile",
+                                        "eks:DescribeFargateProfile"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": "*"
+                                    },
+                                    {
+                                      "Action": [
+                                        "ec2:DescribeDhcpOptions",
+                                        "ec2:DescribeInstances",
+                                        "ec2:DescribeNetworkInterfaces",
+                                        "ec2:DescribeRouteTables",
+                                        "ec2:DescribeSecurityGroups",
+                                        "ec2:DescribeSubnets",
+                                        "ec2:DescribeVpcs",
+                                        "iam:CreateServiceLinkedRole",
+                                        "iam:GetRole",
+                                        "iam:listAttachedRolePolicies"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": "*"
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "policyName": "MyClusterCreationRoleDefaultPolicyE6AD26A7",
+                                "roles": [
+                                  {
+                                    "Ref": "MyClusterCreationRoleB5FA4FF3"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.CfnPolicy",
+                              "version": "1.204.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.Policy",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.Role",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "KomiserStack/MyCluster/Resource/Resource",
+                    "children": {
+                      "Default": {
+                        "id": "Default",
+                        "path": "KomiserStack/MyCluster/Resource/Resource/Default",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.CfnResource",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CustomResource",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.204.0"
+                }
+              },
+              "KubectlReadyBarrier": {
+                "id": "KubectlReadyBarrier",
+                "path": "KomiserStack/MyCluster/KubectlReadyBarrier",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnResource",
+                  "version": "1.204.0"
+                }
+              },
+              "ClusterSecurityGroup": {
+                "id": "ClusterSecurityGroup",
+                "path": "KomiserStack/MyCluster/ClusterSecurityGroup",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Resource",
+                  "version": "1.204.0"
+                }
+              },
+              "NodegroupDefaultCapacity": {
+                "id": "NodegroupDefaultCapacity",
+                "path": "KomiserStack/MyCluster/NodegroupDefaultCapacity",
+                "children": {
+                  "NodeGroupRole": {
+                    "id": "NodeGroupRole",
+                    "path": "KomiserStack/MyCluster/NodegroupDefaultCapacity/NodeGroupRole",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "KomiserStack/MyCluster/NodegroupDefaultCapacity/NodeGroupRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "ec2.",
+                                          {
+                                            "Ref": "AWS::URLSuffix"
+                                          }
+                                        ]
+                                      ]
+                                    }
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "managedPolicyArns": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/AmazonEKSWorkerNodePolicy"
+                                  ]
+                                ]
+                              },
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/AmazonEKS_CNI_Policy"
+                                  ]
+                                ]
+                              },
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+                                  ]
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.CfnRole",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.Role",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "KomiserStack/MyCluster/NodegroupDefaultCapacity/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EKS::Nodegroup",
+                      "aws:cdk:cloudformation:props": {
+                        "clusterName": {
+                          "Ref": "MyCluster8AD82BF8"
+                        },
+                        "nodeRole": {
+                          "Fn::GetAtt": [
+                            "MyClusterNodegroupDefaultCapacityNodeGroupRoleC0CED26C",
+                            "Arn"
+                          ]
+                        },
+                        "subnets": [
+                          {
+                            "Ref": "MyClusterDefaultVpcPrivateSubnet1SubnetE1D0DCDB"
+                          },
+                          {
+                            "Ref": "MyClusterDefaultVpcPrivateSubnet2Subnet11FEA8D0"
+                          }
+                        ],
+                        "amiType": "AL2_x86_64",
+                        "forceUpdateEnabled": true,
+                        "instanceTypes": [
+                          "m5.large"
+                        ],
+                        "scalingConfig": {
+                          "desiredSize": 2,
+                          "maxSize": 2,
+                          "minSize": 2
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-eks.CfnNodegroup",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-eks.Nodegroup",
+                  "version": "1.204.0"
+                }
+              },
+              "AwsAuth": {
+                "id": "AwsAuth",
+                "path": "KomiserStack/MyCluster/AwsAuth",
+                "children": {
+                  "manifest": {
+                    "id": "manifest",
+                    "path": "KomiserStack/MyCluster/AwsAuth/manifest",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "KomiserStack/MyCluster/AwsAuth/manifest/Resource",
+                        "children": {
+                          "Default": {
+                            "id": "Default",
+                            "path": "KomiserStack/MyCluster/AwsAuth/manifest/Resource/Default",
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/core.CfnResource",
+                              "version": "1.204.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.CustomResource",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-eks.KubernetesManifest",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-eks.AwsAuth",
+                  "version": "1.204.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-eks.Cluster",
+              "version": "1.204.0"
+            }
+          },
+          "@aws-cdk--aws-eks.ClusterResourceProvider": {
+            "id": "@aws-cdk--aws-eks.ClusterResourceProvider",
+            "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider",
+            "children": {
+              "NodeProxyAgentLayer": {
+                "id": "NodeProxyAgentLayer",
+                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/NodeProxyAgentLayer",
+                "children": {
+                  "Code": {
+                    "id": "Code",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/NodeProxyAgentLayer/Code",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/NodeProxyAgentLayer/Code/Stage",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.AssetStaging",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/NodeProxyAgentLayer/Code/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-s3.BucketBase",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/NodeProxyAgentLayer/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::LayerVersion",
+                      "aws:cdk:cloudformation:props": {
+                        "content": {
+                          "s3Bucket": {
+                            "Ref": "referencetoKomiserStackAssetParameters4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06eeS3Bucket14AFA10ERef"
+                          },
+                          "s3Key": {
+                            "Fn::Join": [
+                              "",
+                              [
+                                {
+                                  "Fn::Select": [
+                                    0,
+                                    {
+                                      "Fn::Split": [
+                                        "||",
+                                        {
+                                          "Ref": "referencetoKomiserStackAssetParameters4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06eeS3VersionKey88EE3E47Ref"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Fn::Select": [
+                                    1,
+                                    {
+                                      "Fn::Split": [
+                                        "||",
+                                        {
+                                          "Ref": "referencetoKomiserStackAssetParameters4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06eeS3VersionKey88EE3E47Ref"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            ]
+                          }
+                        },
+                        "description": "/opt/nodejs/node_modules/proxy-agent"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-lambda.CfnLayerVersion",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/lambda-layer-node-proxy-agent.NodeProxyAgentLayer",
+                  "version": "1.204.0"
+                }
+              },
+              "OnEventHandler": {
+                "id": "OnEventHandler",
+                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/OnEventHandler",
+                "children": {
+                  "ServiceRole": {
+                    "id": "ServiceRole",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/OnEventHandler/ServiceRole",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/OnEventHandler/ServiceRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "managedPolicyArns": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                  ]
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.CfnRole",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.Role",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "Code": {
+                    "id": "Code",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/OnEventHandler/Code",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/OnEventHandler/Code/Stage",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.AssetStaging",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/OnEventHandler/Code/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-s3.BucketBase",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/OnEventHandler/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                      "aws:cdk:cloudformation:props": {
+                        "code": {
+                          "s3Bucket": {
+                            "Ref": "referencetoKomiserStackAssetParameters98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02dS3BucketECD88D79Ref"
+                          },
+                          "s3Key": {
+                            "Fn::Join": [
+                              "",
+                              [
+                                {
+                                  "Fn::Select": [
+                                    0,
+                                    {
+                                      "Fn::Split": [
+                                        "||",
+                                        {
+                                          "Ref": "referencetoKomiserStackAssetParameters98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02dS3VersionKeyD5ED9AA7Ref"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Fn::Select": [
+                                    1,
+                                    {
+                                      "Fn::Split": [
+                                        "||",
+                                        {
+                                          "Ref": "referencetoKomiserStackAssetParameters98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02dS3VersionKeyD5ED9AA7Ref"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            ]
+                          }
+                        },
+                        "role": {
+                          "Fn::GetAtt": [
+                            "OnEventHandlerServiceRole15A26729",
+                            "Arn"
+                          ]
+                        },
+                        "description": "onEvent handler for EKS cluster resource provider",
+                        "environment": {
+                          "variables": {
+                            "AWS_STS_REGIONAL_ENDPOINTS": "regional"
+                          }
+                        },
+                        "handler": "index.onEvent",
+                        "layers": [
+                          {
+                            "Ref": "NodeProxyAgentLayer924C1971"
+                          }
+                        ],
+                        "runtime": "nodejs14.x",
+                        "timeout": 60
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-lambda.Function",
+                  "version": "1.204.0"
+                }
+              },
+              "IsCompleteHandler": {
+                "id": "IsCompleteHandler",
+                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/IsCompleteHandler",
+                "children": {
+                  "ServiceRole": {
+                    "id": "ServiceRole",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/IsCompleteHandler/ServiceRole",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/IsCompleteHandler/ServiceRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "managedPolicyArns": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                  ]
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.CfnRole",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.Role",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "Code": {
+                    "id": "Code",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/IsCompleteHandler/Code",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/IsCompleteHandler/Code/Stage",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.AssetStaging",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/IsCompleteHandler/Code/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-s3.BucketBase",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/IsCompleteHandler/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                      "aws:cdk:cloudformation:props": {
+                        "code": {
+                          "s3Bucket": {
+                            "Ref": "referencetoKomiserStackAssetParameters98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02dS3BucketECD88D79Ref"
+                          },
+                          "s3Key": {
+                            "Fn::Join": [
+                              "",
+                              [
+                                {
+                                  "Fn::Select": [
+                                    0,
+                                    {
+                                      "Fn::Split": [
+                                        "||",
+                                        {
+                                          "Ref": "referencetoKomiserStackAssetParameters98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02dS3VersionKeyD5ED9AA7Ref"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Fn::Select": [
+                                    1,
+                                    {
+                                      "Fn::Split": [
+                                        "||",
+                                        {
+                                          "Ref": "referencetoKomiserStackAssetParameters98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02dS3VersionKeyD5ED9AA7Ref"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            ]
+                          }
+                        },
+                        "role": {
+                          "Fn::GetAtt": [
+                            "IsCompleteHandlerServiceRole5810CC58",
+                            "Arn"
+                          ]
+                        },
+                        "description": "isComplete handler for EKS cluster resource provider",
+                        "environment": {
+                          "variables": {
+                            "AWS_STS_REGIONAL_ENDPOINTS": "regional"
+                          }
+                        },
+                        "handler": "index.isComplete",
+                        "layers": [
+                          {
+                            "Ref": "NodeProxyAgentLayer924C1971"
+                          }
+                        ],
+                        "runtime": "nodejs14.x",
+                        "timeout": 60
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-lambda.Function",
+                  "version": "1.204.0"
+                }
+              },
+              "Provider": {
+                "id": "Provider",
+                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider",
+                "children": {
+                  "framework-onEvent": {
+                    "id": "framework-onEvent",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onEvent",
+                    "children": {
+                      "ServiceRole": {
+                        "id": "ServiceRole",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onEvent/ServiceRole",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onEvent/ServiceRole/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                              "aws:cdk:cloudformation:props": {
+                                "assumeRolePolicyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "Service": "lambda.amazonaws.com"
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "managedPolicyArns": [
+                                  {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                      ]
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.CfnRole",
+                              "version": "1.204.0"
+                            }
+                          },
+                          "DefaultPolicy": {
+                            "id": "DefaultPolicy",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onEvent/ServiceRole/DefaultPolicy",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onEvent/ServiceRole/DefaultPolicy/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                  "aws:cdk:cloudformation:props": {
+                                    "policyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": "lambda:InvokeFunction",
+                                          "Effect": "Allow",
+                                          "Resource": [
+                                            {
+                                              "Fn::GetAtt": [
+                                                "IsCompleteHandler7073F4DA",
+                                                "Arn"
+                                              ]
+                                            },
+                                            {
+                                              "Fn::GetAtt": [
+                                                "OnEventHandler42BEBAE0",
+                                                "Arn"
+                                              ]
+                                            },
+                                            {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  {
+                                                    "Fn::GetAtt": [
+                                                      "IsCompleteHandler7073F4DA",
+                                                      "Arn"
+                                                    ]
+                                                  },
+                                                  ":*"
+                                                ]
+                                              ]
+                                            },
+                                            {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  {
+                                                    "Fn::GetAtt": [
+                                                      "OnEventHandler42BEBAE0",
+                                                      "Arn"
+                                                    ]
+                                                  },
+                                                  ":*"
+                                                ]
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Action": "states:StartExecution",
+                                          "Effect": "Allow",
+                                          "Resource": {
+                                            "Ref": "Providerwaiterstatemachine5D4A9DF0"
+                                          }
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    },
+                                    "policyName": "ProviderframeworkonEventServiceRoleDefaultPolicy48CD2133",
+                                    "roles": [
+                                      {
+                                        "Ref": "ProviderframeworkonEventServiceRole9FF04296"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "@aws-cdk/aws-iam.CfnPolicy",
+                                  "version": "1.204.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.Policy",
+                              "version": "1.204.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.Role",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "Code": {
+                        "id": "Code",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onEvent/Code",
+                        "children": {
+                          "Stage": {
+                            "id": "Stage",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onEvent/Code/Stage",
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/core.AssetStaging",
+                              "version": "1.204.0"
+                            }
+                          },
+                          "AssetBucket": {
+                            "id": "AssetBucket",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onEvent/Code/AssetBucket",
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-s3.BucketBase",
+                              "version": "1.204.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onEvent/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                          "aws:cdk:cloudformation:props": {
+                            "code": {
+                              "s3Bucket": {
+                                "Ref": "referencetoKomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3Bucket8A38C1C9Ref"
+                              },
+                              "s3Key": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    {
+                                      "Fn::Select": [
+                                        0,
+                                        {
+                                          "Fn::Split": [
+                                            "||",
+                                            {
+                                              "Ref": "referencetoKomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKeyFE026471Ref"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Select": [
+                                        1,
+                                        {
+                                          "Fn::Split": [
+                                            "||",
+                                            {
+                                              "Ref": "referencetoKomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKeyFE026471Ref"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                ]
+                              }
+                            },
+                            "role": {
+                              "Fn::GetAtt": [
+                                "ProviderframeworkonEventServiceRole9FF04296",
+                                "Arn"
+                              ]
+                            },
+                            "description": "AWS CDK resource provider framework - onEvent (KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider)",
+                            "environment": {
+                              "variables": {
+                                "USER_ON_EVENT_FUNCTION_ARN": {
+                                  "Fn::GetAtt": [
+                                    "OnEventHandler42BEBAE0",
+                                    "Arn"
+                                  ]
+                                },
+                                "USER_IS_COMPLETE_FUNCTION_ARN": {
+                                  "Fn::GetAtt": [
+                                    "IsCompleteHandler7073F4DA",
+                                    "Arn"
+                                  ]
+                                },
+                                "WAITER_STATE_MACHINE_ARN": {
+                                  "Ref": "Providerwaiterstatemachine5D4A9DF0"
+                                }
+                              }
+                            },
+                            "handler": "framework.onEvent",
+                            "runtime": "nodejs14.x",
+                            "timeout": 900
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-lambda.Function",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "framework-isComplete": {
+                    "id": "framework-isComplete",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-isComplete",
+                    "children": {
+                      "ServiceRole": {
+                        "id": "ServiceRole",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-isComplete/ServiceRole",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-isComplete/ServiceRole/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                              "aws:cdk:cloudformation:props": {
+                                "assumeRolePolicyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "Service": "lambda.amazonaws.com"
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "managedPolicyArns": [
+                                  {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                      ]
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.CfnRole",
+                              "version": "1.204.0"
+                            }
+                          },
+                          "DefaultPolicy": {
+                            "id": "DefaultPolicy",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-isComplete/ServiceRole/DefaultPolicy",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-isComplete/ServiceRole/DefaultPolicy/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                  "aws:cdk:cloudformation:props": {
+                                    "policyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": "lambda:InvokeFunction",
+                                          "Effect": "Allow",
+                                          "Resource": [
+                                            {
+                                              "Fn::GetAtt": [
+                                                "IsCompleteHandler7073F4DA",
+                                                "Arn"
+                                              ]
+                                            },
+                                            {
+                                              "Fn::GetAtt": [
+                                                "OnEventHandler42BEBAE0",
+                                                "Arn"
+                                              ]
+                                            },
+                                            {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  {
+                                                    "Fn::GetAtt": [
+                                                      "IsCompleteHandler7073F4DA",
+                                                      "Arn"
+                                                    ]
+                                                  },
+                                                  ":*"
+                                                ]
+                                              ]
+                                            },
+                                            {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  {
+                                                    "Fn::GetAtt": [
+                                                      "OnEventHandler42BEBAE0",
+                                                      "Arn"
+                                                    ]
+                                                  },
+                                                  ":*"
+                                                ]
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    },
+                                    "policyName": "ProviderframeworkisCompleteServiceRoleDefaultPolicy2E7140AC",
+                                    "roles": [
+                                      {
+                                        "Ref": "ProviderframeworkisCompleteServiceRoleB1087139"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "@aws-cdk/aws-iam.CfnPolicy",
+                                  "version": "1.204.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.Policy",
+                              "version": "1.204.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.Role",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "Code": {
+                        "id": "Code",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-isComplete/Code",
+                        "children": {
+                          "Stage": {
+                            "id": "Stage",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-isComplete/Code/Stage",
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/core.AssetStaging",
+                              "version": "1.204.0"
+                            }
+                          },
+                          "AssetBucket": {
+                            "id": "AssetBucket",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-isComplete/Code/AssetBucket",
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-s3.BucketBase",
+                              "version": "1.204.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-isComplete/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                          "aws:cdk:cloudformation:props": {
+                            "code": {
+                              "s3Bucket": {
+                                "Ref": "referencetoKomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3Bucket8A38C1C9Ref"
+                              },
+                              "s3Key": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    {
+                                      "Fn::Select": [
+                                        0,
+                                        {
+                                          "Fn::Split": [
+                                            "||",
+                                            {
+                                              "Ref": "referencetoKomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKeyFE026471Ref"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Select": [
+                                        1,
+                                        {
+                                          "Fn::Split": [
+                                            "||",
+                                            {
+                                              "Ref": "referencetoKomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKeyFE026471Ref"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                ]
+                              }
+                            },
+                            "role": {
+                              "Fn::GetAtt": [
+                                "ProviderframeworkisCompleteServiceRoleB1087139",
+                                "Arn"
+                              ]
+                            },
+                            "description": "AWS CDK resource provider framework - isComplete (KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider)",
+                            "environment": {
+                              "variables": {
+                                "USER_ON_EVENT_FUNCTION_ARN": {
+                                  "Fn::GetAtt": [
+                                    "OnEventHandler42BEBAE0",
+                                    "Arn"
+                                  ]
+                                },
+                                "USER_IS_COMPLETE_FUNCTION_ARN": {
+                                  "Fn::GetAtt": [
+                                    "IsCompleteHandler7073F4DA",
+                                    "Arn"
+                                  ]
+                                }
+                              }
+                            },
+                            "handler": "framework.isComplete",
+                            "runtime": "nodejs14.x",
+                            "timeout": 900
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-lambda.Function",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "framework-onTimeout": {
+                    "id": "framework-onTimeout",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onTimeout",
+                    "children": {
+                      "ServiceRole": {
+                        "id": "ServiceRole",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onTimeout/ServiceRole",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onTimeout/ServiceRole/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                              "aws:cdk:cloudformation:props": {
+                                "assumeRolePolicyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "Service": "lambda.amazonaws.com"
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "managedPolicyArns": [
+                                  {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                      ]
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.CfnRole",
+                              "version": "1.204.0"
+                            }
+                          },
+                          "DefaultPolicy": {
+                            "id": "DefaultPolicy",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onTimeout/ServiceRole/DefaultPolicy",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onTimeout/ServiceRole/DefaultPolicy/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                  "aws:cdk:cloudformation:props": {
+                                    "policyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": "lambda:InvokeFunction",
+                                          "Effect": "Allow",
+                                          "Resource": [
+                                            {
+                                              "Fn::GetAtt": [
+                                                "IsCompleteHandler7073F4DA",
+                                                "Arn"
+                                              ]
+                                            },
+                                            {
+                                              "Fn::GetAtt": [
+                                                "OnEventHandler42BEBAE0",
+                                                "Arn"
+                                              ]
+                                            },
+                                            {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  {
+                                                    "Fn::GetAtt": [
+                                                      "IsCompleteHandler7073F4DA",
+                                                      "Arn"
+                                                    ]
+                                                  },
+                                                  ":*"
+                                                ]
+                                              ]
+                                            },
+                                            {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  {
+                                                    "Fn::GetAtt": [
+                                                      "OnEventHandler42BEBAE0",
+                                                      "Arn"
+                                                    ]
+                                                  },
+                                                  ":*"
+                                                ]
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    },
+                                    "policyName": "ProviderframeworkonTimeoutServiceRoleDefaultPolicy2688969F",
+                                    "roles": [
+                                      {
+                                        "Ref": "ProviderframeworkonTimeoutServiceRole28643D26"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "@aws-cdk/aws-iam.CfnPolicy",
+                                  "version": "1.204.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.Policy",
+                              "version": "1.204.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.Role",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "Code": {
+                        "id": "Code",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onTimeout/Code",
+                        "children": {
+                          "Stage": {
+                            "id": "Stage",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onTimeout/Code/Stage",
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/core.AssetStaging",
+                              "version": "1.204.0"
+                            }
+                          },
+                          "AssetBucket": {
+                            "id": "AssetBucket",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onTimeout/Code/AssetBucket",
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-s3.BucketBase",
+                              "version": "1.204.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onTimeout/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                          "aws:cdk:cloudformation:props": {
+                            "code": {
+                              "s3Bucket": {
+                                "Ref": "referencetoKomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3Bucket8A38C1C9Ref"
+                              },
+                              "s3Key": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    {
+                                      "Fn::Select": [
+                                        0,
+                                        {
+                                          "Fn::Split": [
+                                            "||",
+                                            {
+                                              "Ref": "referencetoKomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKeyFE026471Ref"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Select": [
+                                        1,
+                                        {
+                                          "Fn::Split": [
+                                            "||",
+                                            {
+                                              "Ref": "referencetoKomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKeyFE026471Ref"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                ]
+                              }
+                            },
+                            "role": {
+                              "Fn::GetAtt": [
+                                "ProviderframeworkonTimeoutServiceRole28643D26",
+                                "Arn"
+                              ]
+                            },
+                            "description": "AWS CDK resource provider framework - onTimeout (KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider)",
+                            "environment": {
+                              "variables": {
+                                "USER_ON_EVENT_FUNCTION_ARN": {
+                                  "Fn::GetAtt": [
+                                    "OnEventHandler42BEBAE0",
+                                    "Arn"
+                                  ]
+                                },
+                                "USER_IS_COMPLETE_FUNCTION_ARN": {
+                                  "Fn::GetAtt": [
+                                    "IsCompleteHandler7073F4DA",
+                                    "Arn"
+                                  ]
+                                }
+                              }
+                            },
+                            "handler": "framework.onTimeout",
+                            "runtime": "nodejs14.x",
+                            "timeout": 900
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-lambda.Function",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "waiter-state-machine": {
+                    "id": "waiter-state-machine",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/waiter-state-machine",
+                    "children": {
+                      "Role": {
+                        "id": "Role",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/waiter-state-machine/Role",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/waiter-state-machine/Role/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                              "aws:cdk:cloudformation:props": {
+                                "assumeRolePolicyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "Service": {
+                                          "Fn::Join": [
+                                            "",
+                                            [
+                                              "states.",
+                                              {
+                                                "Ref": "AWS::Region"
+                                              },
+                                              ".amazonaws.com"
+                                            ]
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.CfnRole",
+                              "version": "1.204.0"
+                            }
+                          },
+                          "DefaultPolicy": {
+                            "id": "DefaultPolicy",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/waiter-state-machine/Role/DefaultPolicy",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/waiter-state-machine/Role/DefaultPolicy/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                  "aws:cdk:cloudformation:props": {
+                                    "policyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": "lambda:InvokeFunction",
+                                          "Effect": "Allow",
+                                          "Resource": [
+                                            {
+                                              "Fn::GetAtt": [
+                                                "ProviderframeworkisComplete26D7B0CB",
+                                                "Arn"
+                                              ]
+                                            },
+                                            {
+                                              "Fn::GetAtt": [
+                                                "ProviderframeworkonTimeout0B47CA38",
+                                                "Arn"
+                                              ]
+                                            },
+                                            {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  {
+                                                    "Fn::GetAtt": [
+                                                      "ProviderframeworkisComplete26D7B0CB",
+                                                      "Arn"
+                                                    ]
+                                                  },
+                                                  ":*"
+                                                ]
+                                              ]
+                                            },
+                                            {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  {
+                                                    "Fn::GetAtt": [
+                                                      "ProviderframeworkonTimeout0B47CA38",
+                                                      "Arn"
+                                                    ]
+                                                  },
+                                                  ":*"
+                                                ]
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    },
+                                    "policyName": "ProviderwaiterstatemachineRoleDefaultPolicyD3C3DA1A",
+                                    "roles": [
+                                      {
+                                        "Ref": "ProviderwaiterstatemachineRole0C7159F9"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "@aws-cdk/aws-iam.CfnPolicy",
+                                  "version": "1.204.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.Policy",
+                              "version": "1.204.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.Role",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/waiter-state-machine/Resource",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.CfnResource",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.Construct",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/custom-resources.Provider",
+                  "version": "1.204.0"
+                }
+              },
+              "CDKMetadata": {
+                "id": "CDKMetadata",
+                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/CDKMetadata",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/CDKMetadata/Default",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnResource",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "Condition": {
+                    "id": "Condition",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/CDKMetadata/Condition",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnCondition",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.204.0"
+                }
+              },
+              "KomiserStackawscdkawseksClusterResourceProviderOnEventHandlerServiceRole470E6A69Arn": {
+                "id": "KomiserStackawscdkawseksClusterResourceProviderOnEventHandlerServiceRole470E6A69Arn",
+                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/KomiserStackawscdkawseksClusterResourceProviderOnEventHandlerServiceRole470E6A69Arn",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnOutput",
+                  "version": "1.204.0"
+                }
+              },
+              "KomiserStackawscdkawseksClusterResourceProviderIsCompleteHandlerServiceRoleDC1B2E25Arn": {
+                "id": "KomiserStackawscdkawseksClusterResourceProviderIsCompleteHandlerServiceRoleDC1B2E25Arn",
+                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/KomiserStackawscdkawseksClusterResourceProviderIsCompleteHandlerServiceRoleDC1B2E25Arn",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnOutput",
+                  "version": "1.204.0"
+                }
+              },
+              "KomiserStackawscdkawseksClusterResourceProviderframeworkonEvent352D07A0Arn": {
+                "id": "KomiserStackawscdkawseksClusterResourceProviderframeworkonEvent352D07A0Arn",
+                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/KomiserStackawscdkawseksClusterResourceProviderframeworkonEvent352D07A0Arn",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnOutput",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackAssetParameters4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06eeS3Bucket14AFA10ERef": {
+                "id": "reference-to-KomiserStackAssetParameters4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06eeS3Bucket14AFA10ERef",
+                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/reference-to-KomiserStackAssetParameters4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06eeS3Bucket14AFA10ERef",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackAssetParameters4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06eeS3VersionKey88EE3E47Ref": {
+                "id": "reference-to-KomiserStackAssetParameters4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06eeS3VersionKey88EE3E47Ref",
+                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/reference-to-KomiserStackAssetParameters4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06eeS3VersionKey88EE3E47Ref",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackAssetParameters98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02dS3BucketECD88D79Ref": {
+                "id": "reference-to-KomiserStackAssetParameters98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02dS3BucketECD88D79Ref",
+                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/reference-to-KomiserStackAssetParameters98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02dS3BucketECD88D79Ref",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackAssetParameters98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02dS3VersionKeyD5ED9AA7Ref": {
+                "id": "reference-to-KomiserStackAssetParameters98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02dS3VersionKeyD5ED9AA7Ref",
+                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/reference-to-KomiserStackAssetParameters98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02dS3VersionKeyD5ED9AA7Ref",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3Bucket8A38C1C9Ref": {
+                "id": "reference-to-KomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3Bucket8A38C1C9Ref",
+                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/reference-to-KomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3Bucket8A38C1C9Ref",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKeyFE026471Ref": {
+                "id": "reference-to-KomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKeyFE026471Ref",
+                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider/reference-to-KomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKeyFE026471Ref",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.NestedStack",
+              "version": "1.204.0"
+            }
+          },
+          "@aws-cdk--aws-eks.ClusterResourceProvider.NestedStack": {
+            "id": "@aws-cdk--aws-eks.ClusterResourceProvider.NestedStack",
+            "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider.NestedStack",
+            "children": {
+              "@aws-cdk--aws-eks.ClusterResourceProvider.NestedStackResource": {
+                "id": "@aws-cdk--aws-eks.ClusterResourceProvider.NestedStackResource",
+                "path": "KomiserStack/@aws-cdk--aws-eks.ClusterResourceProvider.NestedStack/@aws-cdk--aws-eks.ClusterResourceProvider.NestedStackResource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CloudFormation::Stack",
+                  "aws:cdk:cloudformation:props": {
+                    "templateUrl": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "https://s3.",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ".",
+                          {
+                            "Ref": "AWS::URLSuffix"
+                          },
+                          "/",
+                          {
+                            "Ref": "AssetParameters7812248c8cb359e285da70cc2cd7bbe42a2719f3a4176289a48fce7d405b912aS3BucketB80D27E6"
+                          },
+                          "/",
+                          {
+                            "Fn::Select": [
+                              0,
+                              {
+                                "Fn::Split": [
+                                  "||",
+                                  {
+                                    "Ref": "AssetParameters7812248c8cb359e285da70cc2cd7bbe42a2719f3a4176289a48fce7d405b912aS3VersionKey773E3066"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "Fn::Select": [
+                              1,
+                              {
+                                "Fn::Split": [
+                                  "||",
+                                  {
+                                    "Ref": "AssetParameters7812248c8cb359e285da70cc2cd7bbe42a2719f3a4176289a48fce7d405b912aS3VersionKey773E3066"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      ]
+                    },
+                    "parameters": {
+                      "referencetoKomiserStackAssetParameters4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06eeS3Bucket14AFA10ERef": {
+                        "Ref": "AssetParameters4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06eeS3Bucket4E7CD097"
+                      },
+                      "referencetoKomiserStackAssetParameters4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06eeS3VersionKey88EE3E47Ref": {
+                        "Ref": "AssetParameters4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06eeS3VersionKey93D16224"
+                      },
+                      "referencetoKomiserStackAssetParameters98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02dS3BucketECD88D79Ref": {
+                        "Ref": "AssetParameters98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02dS3BucketF88C8A92"
+                      },
+                      "referencetoKomiserStackAssetParameters98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02dS3VersionKeyD5ED9AA7Ref": {
+                        "Ref": "AssetParameters98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02dS3VersionKeyB91EE5ED"
+                      },
+                      "referencetoKomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3Bucket8A38C1C9Ref": {
+                        "Ref": "AssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3Bucket766250D8"
+                      },
+                      "referencetoKomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKeyFE026471Ref": {
+                        "Ref": "AssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKey850D9181"
+                      }
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnStack",
+                  "version": "1.204.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.Construct",
+              "version": "1.204.0"
+            }
+          },
+          "AssetParameters": {
+            "id": "AssetParameters",
+            "path": "KomiserStack/AssetParameters",
+            "children": {
+              "4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06ee": {
+                "id": "4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06ee",
+                "path": "KomiserStack/AssetParameters/4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06ee",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "KomiserStack/AssetParameters/4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06ee/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "KomiserStack/AssetParameters/4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06ee/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "KomiserStack/AssetParameters/4288ebb3652acdf2d828b7db7ca44a7162a401ace50ebb4026e84b18a02a06ee/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.204.0"
+                }
+              },
+              "98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02d": {
+                "id": "98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02d",
+                "path": "KomiserStack/AssetParameters/98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02d",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "KomiserStack/AssetParameters/98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02d/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "KomiserStack/AssetParameters/98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02d/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "KomiserStack/AssetParameters/98908a88aa1d19a5175824f9f289b2d4736b7e17837f4e1ca871251a7505c02d/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.204.0"
+                }
+              },
+              "3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671": {
+                "id": "3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671",
+                "path": "KomiserStack/AssetParameters/3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "KomiserStack/AssetParameters/3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "KomiserStack/AssetParameters/3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "KomiserStack/AssetParameters/3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.204.0"
+                }
+              },
+              "5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03": {
+                "id": "5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03",
+                "path": "KomiserStack/AssetParameters/5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "KomiserStack/AssetParameters/5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "KomiserStack/AssetParameters/5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "KomiserStack/AssetParameters/5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.204.0"
+                }
+              },
+              "1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5": {
+                "id": "1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5",
+                "path": "KomiserStack/AssetParameters/1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "KomiserStack/AssetParameters/1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "KomiserStack/AssetParameters/1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "KomiserStack/AssetParameters/1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.204.0"
+                }
+              },
+              "c6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffed": {
+                "id": "c6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffed",
+                "path": "KomiserStack/AssetParameters/c6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffed",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "KomiserStack/AssetParameters/c6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffed/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "KomiserStack/AssetParameters/c6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffed/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "KomiserStack/AssetParameters/c6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffed/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.204.0"
+                }
+              },
+              "7812248c8cb359e285da70cc2cd7bbe42a2719f3a4176289a48fce7d405b912a": {
+                "id": "7812248c8cb359e285da70cc2cd7bbe42a2719f3a4176289a48fce7d405b912a",
+                "path": "KomiserStack/AssetParameters/7812248c8cb359e285da70cc2cd7bbe42a2719f3a4176289a48fce7d405b912a",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "KomiserStack/AssetParameters/7812248c8cb359e285da70cc2cd7bbe42a2719f3a4176289a48fce7d405b912a/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "KomiserStack/AssetParameters/7812248c8cb359e285da70cc2cd7bbe42a2719f3a4176289a48fce7d405b912a/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "KomiserStack/AssetParameters/7812248c8cb359e285da70cc2cd7bbe42a2719f3a4176289a48fce7d405b912a/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.204.0"
+                }
+              },
+              "bc4133e01c6a28d5ff599bde787a8d1bee3c7039944f03fdfb2fe4c32377a74a": {
+                "id": "bc4133e01c6a28d5ff599bde787a8d1bee3c7039944f03fdfb2fe4c32377a74a",
+                "path": "KomiserStack/AssetParameters/bc4133e01c6a28d5ff599bde787a8d1bee3c7039944f03fdfb2fe4c32377a74a",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "KomiserStack/AssetParameters/bc4133e01c6a28d5ff599bde787a8d1bee3c7039944f03fdfb2fe4c32377a74a/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "KomiserStack/AssetParameters/bc4133e01c6a28d5ff599bde787a8d1bee3c7039944f03fdfb2fe4c32377a74a/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "KomiserStack/AssetParameters/bc4133e01c6a28d5ff599bde787a8d1bee3c7039944f03fdfb2fe4c32377a74a/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.204.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.Construct",
+              "version": "1.204.0"
+            }
+          },
+          "@aws-cdk--aws-eks.KubectlProvider": {
+            "id": "@aws-cdk--aws-eks.KubectlProvider",
+            "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider",
+            "children": {
+              "Handler": {
+                "id": "Handler",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/Handler",
+                "children": {
+                  "Code": {
+                    "id": "Code",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/Handler/Code",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/Handler/Code/Stage",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.AssetStaging",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/Handler/Code/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-s3.BucketBase",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/Handler/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                      "aws:cdk:cloudformation:props": {
+                        "code": {
+                          "s3Bucket": {
+                            "Ref": "referencetoKomiserStackAssetParameters5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03S3Bucket41DB193BRef"
+                          },
+                          "s3Key": {
+                            "Fn::Join": [
+                              "",
+                              [
+                                {
+                                  "Fn::Select": [
+                                    0,
+                                    {
+                                      "Fn::Split": [
+                                        "||",
+                                        {
+                                          "Ref": "referencetoKomiserStackAssetParameters5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03S3VersionKey447B1B26Ref"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Fn::Select": [
+                                    1,
+                                    {
+                                      "Fn::Split": [
+                                        "||",
+                                        {
+                                          "Ref": "referencetoKomiserStackAssetParameters5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03S3VersionKey447B1B26Ref"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            ]
+                          }
+                        },
+                        "role": {
+                          "Ref": "referencetoKomiserStackMyClusterKubectlHandlerRoleE00C13CFArn"
+                        },
+                        "description": "onEvent handler for EKS kubectl resource provider",
+                        "handler": "index.handler",
+                        "layers": [
+                          {
+                            "Ref": "AwsCliLayerF44AAF94"
+                          },
+                          {
+                            "Ref": "KubectlLayer600207B5"
+                          }
+                        ],
+                        "memorySize": 1024,
+                        "runtime": "python3.7",
+                        "timeout": 900,
+                        "vpcConfig": {
+                          "subnetIds": [
+                            {
+                              "Ref": "referencetoKomiserStackMyClusterDefaultVpcPrivateSubnet1SubnetA834CEDDRef"
+                            },
+                            {
+                              "Ref": "referencetoKomiserStackMyClusterDefaultVpcPrivateSubnet2Subnet36009256Ref"
+                            }
+                          ],
+                          "securityGroupIds": [
+                            {
+                              "Ref": "referencetoKomiserStackMyCluster58F014D6ClusterSecurityGroupId"
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-lambda.Function",
+                  "version": "1.204.0"
+                }
+              },
+              "AwsCliLayer": {
+                "id": "AwsCliLayer",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/AwsCliLayer",
+                "children": {
+                  "Code": {
+                    "id": "Code",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/AwsCliLayer/Code",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/AwsCliLayer/Code/Stage",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.AssetStaging",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/AwsCliLayer/Code/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-s3.BucketBase",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/AwsCliLayer/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::LayerVersion",
+                      "aws:cdk:cloudformation:props": {
+                        "content": {
+                          "s3Bucket": {
+                            "Ref": "referencetoKomiserStackAssetParameters1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5S3BucketBA45C5BBRef"
+                          },
+                          "s3Key": {
+                            "Fn::Join": [
+                              "",
+                              [
+                                {
+                                  "Fn::Select": [
+                                    0,
+                                    {
+                                      "Fn::Split": [
+                                        "||",
+                                        {
+                                          "Ref": "referencetoKomiserStackAssetParameters1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5S3VersionKey7E123F4FRef"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Fn::Select": [
+                                    1,
+                                    {
+                                      "Fn::Split": [
+                                        "||",
+                                        {
+                                          "Ref": "referencetoKomiserStackAssetParameters1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5S3VersionKey7E123F4FRef"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            ]
+                          }
+                        },
+                        "description": "/opt/awscli/aws"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-lambda.CfnLayerVersion",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/lambda-layer-awscli.AwsCliLayer",
+                  "version": "1.204.0"
+                }
+              },
+              "KubectlLayer": {
+                "id": "KubectlLayer",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/KubectlLayer",
+                "children": {
+                  "Code": {
+                    "id": "Code",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/KubectlLayer/Code",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/KubectlLayer/Code/Stage",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.AssetStaging",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/KubectlLayer/Code/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-s3.BucketBase",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/KubectlLayer/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::LayerVersion",
+                      "aws:cdk:cloudformation:props": {
+                        "content": {
+                          "s3Bucket": {
+                            "Ref": "referencetoKomiserStackAssetParametersc6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffedS3BucketABC99507Ref"
+                          },
+                          "s3Key": {
+                            "Fn::Join": [
+                              "",
+                              [
+                                {
+                                  "Fn::Select": [
+                                    0,
+                                    {
+                                      "Fn::Split": [
+                                        "||",
+                                        {
+                                          "Ref": "referencetoKomiserStackAssetParametersc6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffedS3VersionKey8F18C207Ref"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Fn::Select": [
+                                    1,
+                                    {
+                                      "Fn::Split": [
+                                        "||",
+                                        {
+                                          "Ref": "referencetoKomiserStackAssetParametersc6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffedS3VersionKey8F18C207Ref"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            ]
+                          }
+                        },
+                        "description": "/opt/kubectl/kubectl and /opt/helm/helm"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-lambda.CfnLayerVersion",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/lambda-layer-kubectl.KubectlLayer",
+                  "version": "1.204.0"
+                }
+              },
+              "Provider": {
+                "id": "Provider",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/Provider",
+                "children": {
+                  "framework-onEvent": {
+                    "id": "framework-onEvent",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/Provider/framework-onEvent",
+                    "children": {
+                      "ServiceRole": {
+                        "id": "ServiceRole",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/Provider/framework-onEvent/ServiceRole",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/Provider/framework-onEvent/ServiceRole/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                              "aws:cdk:cloudformation:props": {
+                                "assumeRolePolicyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "Service": "lambda.amazonaws.com"
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "managedPolicyArns": [
+                                  {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                      ]
+                                    ]
+                                  },
+                                  {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+                                      ]
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.CfnRole",
+                              "version": "1.204.0"
+                            }
+                          },
+                          "DefaultPolicy": {
+                            "id": "DefaultPolicy",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/Provider/framework-onEvent/ServiceRole/DefaultPolicy",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/Provider/framework-onEvent/ServiceRole/DefaultPolicy/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                  "aws:cdk:cloudformation:props": {
+                                    "policyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": "lambda:InvokeFunction",
+                                          "Effect": "Allow",
+                                          "Resource": [
+                                            {
+                                              "Fn::GetAtt": [
+                                                "Handler886CB40B",
+                                                "Arn"
+                                              ]
+                                            },
+                                            {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  {
+                                                    "Fn::GetAtt": [
+                                                      "Handler886CB40B",
+                                                      "Arn"
+                                                    ]
+                                                  },
+                                                  ":*"
+                                                ]
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    },
+                                    "policyName": "ProviderframeworkonEventServiceRoleDefaultPolicy48CD2133",
+                                    "roles": [
+                                      {
+                                        "Ref": "ProviderframeworkonEventServiceRole9FF04296"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "@aws-cdk/aws-iam.CfnPolicy",
+                                  "version": "1.204.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.Policy",
+                              "version": "1.204.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.Role",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "Code": {
+                        "id": "Code",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/Provider/framework-onEvent/Code",
+                        "children": {
+                          "Stage": {
+                            "id": "Stage",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/Provider/framework-onEvent/Code/Stage",
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/core.AssetStaging",
+                              "version": "1.204.0"
+                            }
+                          },
+                          "AssetBucket": {
+                            "id": "AssetBucket",
+                            "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/Provider/framework-onEvent/Code/AssetBucket",
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-s3.BucketBase",
+                              "version": "1.204.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/Provider/framework-onEvent/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                          "aws:cdk:cloudformation:props": {
+                            "code": {
+                              "s3Bucket": {
+                                "Ref": "referencetoKomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3Bucket8A38C1C9Ref"
+                              },
+                              "s3Key": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    {
+                                      "Fn::Select": [
+                                        0,
+                                        {
+                                          "Fn::Split": [
+                                            "||",
+                                            {
+                                              "Ref": "referencetoKomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKeyFE026471Ref"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Select": [
+                                        1,
+                                        {
+                                          "Fn::Split": [
+                                            "||",
+                                            {
+                                              "Ref": "referencetoKomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKeyFE026471Ref"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                ]
+                              }
+                            },
+                            "role": {
+                              "Fn::GetAtt": [
+                                "ProviderframeworkonEventServiceRole9FF04296",
+                                "Arn"
+                              ]
+                            },
+                            "description": "AWS CDK resource provider framework - onEvent (KomiserStack/@aws-cdk--aws-eks.KubectlProvider/Provider)",
+                            "environment": {
+                              "variables": {
+                                "USER_ON_EVENT_FUNCTION_ARN": {
+                                  "Fn::GetAtt": [
+                                    "Handler886CB40B",
+                                    "Arn"
+                                  ]
+                                }
+                              }
+                            },
+                            "handler": "framework.onEvent",
+                            "runtime": "nodejs14.x",
+                            "timeout": 900,
+                            "vpcConfig": {
+                              "subnetIds": [
+                                {
+                                  "Ref": "referencetoKomiserStackMyClusterDefaultVpcPrivateSubnet1SubnetA834CEDDRef"
+                                },
+                                {
+                                  "Ref": "referencetoKomiserStackMyClusterDefaultVpcPrivateSubnet2Subnet36009256Ref"
+                                }
+                              ],
+                              "securityGroupIds": [
+                                {
+                                  "Ref": "referencetoKomiserStackMyCluster58F014D6ClusterSecurityGroupId"
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-lambda.Function",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/custom-resources.Provider",
+                  "version": "1.204.0"
+                }
+              },
+              "CDKMetadata": {
+                "id": "CDKMetadata",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/CDKMetadata",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/CDKMetadata/Default",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnResource",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "Condition": {
+                    "id": "Condition",
+                    "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/CDKMetadata/Condition",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnCondition",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.204.0"
+                }
+              },
+              "KomiserStackawscdkawseksKubectlProviderframeworkonEvent3EF64B1DArn": {
+                "id": "KomiserStackawscdkawseksKubectlProviderframeworkonEvent3EF64B1DArn",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/KomiserStackawscdkawseksKubectlProviderframeworkonEvent3EF64B1DArn",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnOutput",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackAssetParameters5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03S3Bucket41DB193BRef": {
+                "id": "reference-to-KomiserStackAssetParameters5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03S3Bucket41DB193BRef",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/reference-to-KomiserStackAssetParameters5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03S3Bucket41DB193BRef",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackAssetParameters5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03S3VersionKey447B1B26Ref": {
+                "id": "reference-to-KomiserStackAssetParameters5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03S3VersionKey447B1B26Ref",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/reference-to-KomiserStackAssetParameters5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03S3VersionKey447B1B26Ref",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackMyClusterKubectlHandlerRoleE00C13CFArn": {
+                "id": "reference-to-KomiserStackMyClusterKubectlHandlerRoleE00C13CFArn",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/reference-to-KomiserStackMyClusterKubectlHandlerRoleE00C13CFArn",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackMyClusterDefaultVpcPrivateSubnet1SubnetA834CEDDRef": {
+                "id": "reference-to-KomiserStackMyClusterDefaultVpcPrivateSubnet1SubnetA834CEDDRef",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/reference-to-KomiserStackMyClusterDefaultVpcPrivateSubnet1SubnetA834CEDDRef",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackMyClusterDefaultVpcPrivateSubnet2Subnet36009256Ref": {
+                "id": "reference-to-KomiserStackMyClusterDefaultVpcPrivateSubnet2Subnet36009256Ref",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/reference-to-KomiserStackMyClusterDefaultVpcPrivateSubnet2Subnet36009256Ref",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackMyCluster58F014D6ClusterSecurityGroupId": {
+                "id": "reference-to-KomiserStackMyCluster58F014D6ClusterSecurityGroupId",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/reference-to-KomiserStackMyCluster58F014D6ClusterSecurityGroupId",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackAssetParameters1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5S3BucketBA45C5BBRef": {
+                "id": "reference-to-KomiserStackAssetParameters1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5S3BucketBA45C5BBRef",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/reference-to-KomiserStackAssetParameters1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5S3BucketBA45C5BBRef",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackAssetParameters1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5S3VersionKey7E123F4FRef": {
+                "id": "reference-to-KomiserStackAssetParameters1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5S3VersionKey7E123F4FRef",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/reference-to-KomiserStackAssetParameters1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5S3VersionKey7E123F4FRef",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackAssetParametersc6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffedS3BucketABC99507Ref": {
+                "id": "reference-to-KomiserStackAssetParametersc6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffedS3BucketABC99507Ref",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/reference-to-KomiserStackAssetParametersc6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffedS3BucketABC99507Ref",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackAssetParametersc6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffedS3VersionKey8F18C207Ref": {
+                "id": "reference-to-KomiserStackAssetParametersc6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffedS3VersionKey8F18C207Ref",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/reference-to-KomiserStackAssetParametersc6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffedS3VersionKey8F18C207Ref",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3Bucket8A38C1C9Ref": {
+                "id": "reference-to-KomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3Bucket8A38C1C9Ref",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/reference-to-KomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3Bucket8A38C1C9Ref",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              },
+              "reference-to-KomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKeyFE026471Ref": {
+                "id": "reference-to-KomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKeyFE026471Ref",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider/reference-to-KomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKeyFE026471Ref",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnParameter",
+                  "version": "1.204.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-eks.KubectlProvider",
+              "version": "1.204.0"
+            }
+          },
+          "@aws-cdk--aws-eks.KubectlProvider.NestedStack": {
+            "id": "@aws-cdk--aws-eks.KubectlProvider.NestedStack",
+            "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider.NestedStack",
+            "children": {
+              "@aws-cdk--aws-eks.KubectlProvider.NestedStackResource": {
+                "id": "@aws-cdk--aws-eks.KubectlProvider.NestedStackResource",
+                "path": "KomiserStack/@aws-cdk--aws-eks.KubectlProvider.NestedStack/@aws-cdk--aws-eks.KubectlProvider.NestedStackResource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CloudFormation::Stack",
+                  "aws:cdk:cloudformation:props": {
+                    "templateUrl": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "https://s3.",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ".",
+                          {
+                            "Ref": "AWS::URLSuffix"
+                          },
+                          "/",
+                          {
+                            "Ref": "AssetParametersbc4133e01c6a28d5ff599bde787a8d1bee3c7039944f03fdfb2fe4c32377a74aS3Bucket5D46C465"
+                          },
+                          "/",
+                          {
+                            "Fn::Select": [
+                              0,
+                              {
+                                "Fn::Split": [
+                                  "||",
+                                  {
+                                    "Ref": "AssetParametersbc4133e01c6a28d5ff599bde787a8d1bee3c7039944f03fdfb2fe4c32377a74aS3VersionKey79AFEFA3"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "Fn::Select": [
+                              1,
+                              {
+                                "Fn::Split": [
+                                  "||",
+                                  {
+                                    "Ref": "AssetParametersbc4133e01c6a28d5ff599bde787a8d1bee3c7039944f03fdfb2fe4c32377a74aS3VersionKey79AFEFA3"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      ]
+                    },
+                    "parameters": {
+                      "referencetoKomiserStackAssetParameters5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03S3Bucket41DB193BRef": {
+                        "Ref": "AssetParameters5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03S3Bucket17F51109"
+                      },
+                      "referencetoKomiserStackAssetParameters5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03S3VersionKey447B1B26Ref": {
+                        "Ref": "AssetParameters5a0165b80474734eff290897da1c8d571862f020eeaac2561c839386159c7f03S3VersionKeyAFA9FFD9"
+                      },
+                      "referencetoKomiserStackMyClusterKubectlHandlerRoleE00C13CFArn": {
+                        "Fn::GetAtt": [
+                          "MyClusterKubectlHandlerRole42303817",
+                          "Arn"
+                        ]
+                      },
+                      "referencetoKomiserStackMyClusterDefaultVpcPrivateSubnet1SubnetA834CEDDRef": {
+                        "Ref": "MyClusterDefaultVpcPrivateSubnet1SubnetE1D0DCDB"
+                      },
+                      "referencetoKomiserStackMyClusterDefaultVpcPrivateSubnet2Subnet36009256Ref": {
+                        "Ref": "MyClusterDefaultVpcPrivateSubnet2Subnet11FEA8D0"
+                      },
+                      "referencetoKomiserStackMyCluster58F014D6ClusterSecurityGroupId": {
+                        "Fn::GetAtt": [
+                          "MyCluster8AD82BF8",
+                          "ClusterSecurityGroupId"
+                        ]
+                      },
+                      "referencetoKomiserStackAssetParameters1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5S3BucketBA45C5BBRef": {
+                        "Ref": "AssetParameters1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5S3BucketA4E7C173"
+                      },
+                      "referencetoKomiserStackAssetParameters1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5S3VersionKey7E123F4FRef": {
+                        "Ref": "AssetParameters1da15adb9ba73812c695f9922eb752050e0a392eba0a120d36d64bfce7cf8dc5S3VersionKey35F67D7E"
+                      },
+                      "referencetoKomiserStackAssetParametersc6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffedS3BucketABC99507Ref": {
+                        "Ref": "AssetParametersc6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffedS3Bucket83B8778F"
+                      },
+                      "referencetoKomiserStackAssetParametersc6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffedS3VersionKey8F18C207Ref": {
+                        "Ref": "AssetParametersc6964dbf0c556ec82ce09622e99ad6f6d4e488cdaac0ef9e8492e078ec61ffedS3VersionKeyADF6A055"
+                      },
+                      "referencetoKomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3Bucket8A38C1C9Ref": {
+                        "Ref": "AssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3Bucket766250D8"
+                      },
+                      "referencetoKomiserStackAssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKeyFE026471Ref": {
+                        "Ref": "AssetParameters3b263c2ad043fd069ef446753788c36e595c82b51a70478e58258c8ef7471671S3VersionKey850D9181"
+                      }
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnStack",
+                  "version": "1.204.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.Construct",
+              "version": "1.204.0"
+            }
+          },
+          "komiser": {
+            "id": "komiser",
+            "path": "KomiserStack/komiser",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "KomiserStack/komiser/Resource",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "KomiserStack/komiser/Resource/Default",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnResource",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CustomResource",
+                  "version": "1.204.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-eks.HelmChart",
+              "version": "1.204.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "KomiserStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "KomiserStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnResource",
+                  "version": "1.204.0"
+                }
+              },
+              "Condition": {
+                "id": "Condition",
+                "path": "KomiserStack/CDKMetadata/Condition",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnCondition",
+                  "version": "1.204.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.Construct",
+              "version": "1.204.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "@aws-cdk/core.Stack",
+          "version": "1.204.0"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "@aws-cdk/core.App",
+      "version": "1.204.0"
+    }
+  }
+}
