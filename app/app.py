@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import os
 
-import aws_cdk.core as cdk
+import aws_cdk as cdk
 
 from app.app_stack import KomiserStack
 
